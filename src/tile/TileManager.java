@@ -95,32 +95,9 @@ public class TileManager {
 
         while (col < gPanel.maxScreenCol && row < gPanel.maxScreenRow)
         {
-
-
             while (col < gPanel.maxScreenCol)
             {
-                g2.drawImage(tile[mapTileNum[0][0]].image, x, y, gPanel.tileSize, gPanel.tileSize, null);
-                col++;
-                x += gPanel.tileSize;
-            }
-            if (col == gPanel.maxScreenCol)
-            {
-                col = 0;
-                row++;
-                x = 0;
-                y += gPanel.tileSize;
-            }
-        }
-
-        row = 0;
-        y = 0;
-        while (col < gPanel.maxScreenCol && row < gPanel.maxScreenRow)
-        {
-            while (col < gPanel.maxScreenCol)
-            {
-                if (mapTileNum[col][row] != 0)
-                    g2.drawImage(tile[mapTileNum[col][row]].image, x, y, gPanel.tileSize, gPanel.tileSize, null);
-
+                g2.drawImage(tile[mapTileNum[col][row]].image, x, y, gPanel.tileSize, gPanel.tileSize, null);
                 col++;
                 x += gPanel.tileSize;
             }
