@@ -103,8 +103,6 @@ public class TileManager {
 
         while (col < gPanel.maxScreenCol && row < gPanel.maxScreenRow)
         {
-
-
             while (col < gPanel.maxScreenCol)
             {
                 g2.drawImage(tile[0].image, x, y, gPanel.tileSize, gPanel.tileSize, null);

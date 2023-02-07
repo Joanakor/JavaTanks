@@ -42,8 +42,8 @@ public class Player extends Entity{
 
     public void setDefaultValues()
     {
-        x = 96;
-        y = 96;
+        worldX = 96;
+        worldY = 96;
         speed = 5;
         direction = "down";
     }
@@ -54,16 +54,16 @@ public class Player extends Entity{
         {
             if (kHandler.downPressed) {
                 direction = "down";
-                y += speed;
+                worldY += speed;
             } else if (kHandler.upPressed) {
                 direction = "up";
-                y -= speed;
+                worldY -= speed;
             } else if (kHandler.rightPressed) {
                 direction = "right";
-                x += speed;
+                worldX += speed;
             } else if (kHandler.leftPressed) {
                 direction = "left";
-                x -= speed;
+                worldX -= speed;
             }
 
             // Switch sprite every 10 frames
@@ -115,7 +115,7 @@ public class Player extends Entity{
                 break;
         }
 
-        g.drawImage(sprite, x, y, gPanel.tileSize, gPanel.tileSize, null);
+        g.drawImage(sprite, worldX, worldY, gPanel.tileSize, gPanel.tileSize, null);
     }
 
 }
