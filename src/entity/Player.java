@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
+// Controllable player class
 public class Player extends Entity{
     GamePanel gPanel;
     KeyHandler kHandler;
@@ -22,6 +23,7 @@ public class Player extends Entity{
         getPlayerImage();
     }
 
+    // Load the sprites of the player
     public void getPlayerImage(){
         try {
             up1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/tank_up1.png")));
@@ -37,7 +39,6 @@ public class Player extends Entity{
             throw new RuntimeException(e);
         }
     }
-
 
     public void setDefaultValues()
     {
@@ -64,6 +65,8 @@ public class Player extends Entity{
                 direction = "left";
                 x -= speed;
             }
+
+            // Switch sprite every 10 frames
 
             spriteCounter++;
             if (spriteCounter > 10) {

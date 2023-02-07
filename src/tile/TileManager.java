@@ -12,7 +12,11 @@ import java.util.Objects;
 
 public class TileManager {
     GamePanel gPanel;
+
+    // Array of all tile variations
     Tile[] tile;
+
+    // Numerical map of tiles
     int mapTileNum[][];
 
 
@@ -29,6 +33,7 @@ public class TileManager {
         loadMap();
     }
 
+    // Load map from txt file to the 2d array
     public void loadMap()
     {
         try {
@@ -64,6 +69,7 @@ public class TileManager {
         }
     }
 
+    // Load all tile textures
     public void getTileImage()
     {
 
@@ -93,6 +99,8 @@ public class TileManager {
         int y = 0;
         int x = 0;
 
+        // Draw the floor tiles
+
         while (col < gPanel.maxScreenCol && row < gPanel.maxScreenRow)
         {
 
@@ -114,6 +122,9 @@ public class TileManager {
 
         row = 0;
         y = 0;
+
+        // Draw everything else on top of the floor tiles
+
         while (col < gPanel.maxScreenCol && row < gPanel.maxScreenRow)
         {
             while (col < gPanel.maxScreenCol)

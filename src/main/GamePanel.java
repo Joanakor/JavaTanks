@@ -8,16 +8,21 @@ import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable{
 
+    // All tiles are 16x16px
     final int originalTileSize = 16;
+
+    // Scale all tiles by 3 times
     final int scale = 3;
 
     public final int tileSize = originalTileSize * scale; // 3 * 16 = 48px
     public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
 
+    // Game window resolution
     public final int screenWidth = maxScreenCol * tileSize; // 16 * 48 = 768px
     public final int screenHeight = maxScreenRow * tileSize; // 12 * 488 = 576px
 
+    // Frames per second
     final int FPS = 60;
 
     Thread gameThread;
@@ -35,12 +40,14 @@ public class GamePanel extends JPanel implements Runnable{
         this.setFocusable(true);
     }
 
+    // Game thread
     public void startGameThread()
     {
         gameThread = new Thread(this);
         gameThread.start();
     }
 
+    // Game loop
     @Override
     public void run()
     {
@@ -49,14 +56,10 @@ public class GamePanel extends JPanel implements Runnable{
         long lastTime = System.nanoTime();
         long currentTime;
 
-        long timer = 0;
-        long drawCount = 0;
-
         while (gameThread != null) {
             currentTime = System.nanoTime();
 
             delta += (currentTime - lastTime) / drawInterval;
-            timer += currentTime - lastTime;
 
             lastTime = currentTime;
 
