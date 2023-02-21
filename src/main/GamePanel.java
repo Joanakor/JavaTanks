@@ -22,6 +22,13 @@ public class GamePanel extends JPanel implements Runnable{
     public final int screenWidth = maxScreenCol * tileSize; // 16 * 48 = 768px
     public final int screenHeight = maxScreenRow * tileSize; // 12 * 488 = 576px
 
+    //World setting
+
+    public final int MaxWorldCol = 50;
+    public final int MaxWorldRow = 50;
+    public final int worldWidth = tileSize * maxScreenCol;
+    public final int worldHeight = tileSize * maxScreenRow;
+
     // Frames per second
     final int FPS = 60;
 
@@ -29,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable{
     KeyHandler keyHandler = new KeyHandler();
     TileManager tileManager = new TileManager(this);
 
-    Player player = new Player(this, keyHandler);
+    public Player player = new Player(this, keyHandler);
 
     public GamePanel()
     {
@@ -56,10 +63,15 @@ public class GamePanel extends JPanel implements Runnable{
         long lastTime = System.nanoTime();
         long currentTime;
 
+        long timer = 0;
+        int drawCount = 0;
+
         while (gameThread != null) {
             currentTime = System.nanoTime();
 
             delta += (currentTime - lastTime) / drawInterval;
+
+            timer += (currentTime - lastTime);
 
             lastTime = currentTime;
 
@@ -70,6 +82,15 @@ public class GamePanel extends JPanel implements Runnable{
                 repaint();
 
                 delta--;
+
+                drawCount++;
+            }
+
+            if (timer >= 1000000000)
+            {
+                System.out.println(drawCount);
+                drawCount = 0;
+                timer = 0;
             }
         }
     }

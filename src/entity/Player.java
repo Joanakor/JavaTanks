@@ -14,10 +14,17 @@ public class Player extends Entity{
     GamePanel gPanel;
     KeyHandler kHandler;
 
+    public final int screenX;
+    public final int screenY;
+
     public Player(GamePanel gp, KeyHandler kh)
     {
         gPanel = gp;
         kHandler = kh;
+
+        //Location of the player on the screen (in its center)
+        screenX = gPanel.screenWidth/2 - gp.tileSize/2;
+        screenY = gPanel.screenHeight/2 - gp.tileSize/2;
 
         setDefaultValues();
         getPlayerImage();
@@ -42,8 +49,8 @@ public class Player extends Entity{
 
     public void setDefaultValues()
     {
-        worldX = 96;
-        worldY = 96;
+        worldX = gPanel.tileSize * 21;
+        worldY = gPanel.tileSize * 13;
         speed = 5;
         direction = "down";
     }
@@ -115,7 +122,7 @@ public class Player extends Entity{
                 break;
         }
 
-        g.drawImage(sprite, worldX, worldY, gPanel.tileSize, gPanel.tileSize, null);
+        g.drawImage(sprite, screenX, screenY, gPanel.tileSize, gPanel.tileSize, null);
     }
 
 }
