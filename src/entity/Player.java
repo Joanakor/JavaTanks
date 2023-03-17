@@ -2,6 +2,7 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
+import main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -32,21 +33,33 @@ public class Player extends Entity{
 
     // Load the sprites of the player
     public void getPlayerImage(){
-        try {
-            up1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/tank_up1.png")));
-            up2 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/tank_up2.png")));
-            down1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/tank_down1.png")));
-            down2 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/tank_down2.png")));
-            right1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/tank_right1.png")));
-            right2 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/tank_right2.png")));
-            left1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/tank_left1.png")));
-            left2 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/tank_left2.png")));
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        up1 = setup("tank_up1");
+        up2 = setup("tank_up2");
+        down1 = setup("tank_down1");
+        down2 = setup("tank_down2");
+        right1 = setup("tank_right1");
+        right2 = setup("tank_right2");
+        left1 = setup("tank_left1");
+        left2 = setup("tank_left2");
     }
 
+    public BufferedImage setup(String imageName)
+    {
+        UtilityTool tool = new UtilityTool();
+        BufferedImage scaledImage = null;
+
+        try {
+            scaledImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/" + imageName + ".png")));
+            scaledImage = tool.scaleImage(scaledImage, gPanel.tileSize, gPanel.tileSize);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return scaledImage;
+    }
     public void setDefaultValues()
     {
         worldX = gPanel.tileSize * 21;
@@ -122,7 +135,7 @@ public class Player extends Entity{
                 break;
         }
 
-        g.drawImage(sprite, screenX, screenY, gPanel.tileSize, gPanel.tileSize, null);
+        g.drawImage(sprite, screenX, screenY, null);
     }
 
 }

@@ -1,6 +1,7 @@
 package tile;
 
 import main.GamePanel;
+import main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -34,6 +35,23 @@ public class TileManager {
     }
 
     // Load map from txt file to the 2d array
+
+    public void setup(int index, String imageName, boolean collision)
+    {
+        UtilityTool tool = new UtilityTool();
+
+        try
+        {
+            tile[index] = new Tile();
+            tile[index].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/" + imageName + ".png")));
+            tile[index].image = tool.scaleImage(tile[index].image, gPanel.tileSize, gPanel.tileSize);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     public void loadMap()
     {
         try {
@@ -72,24 +90,12 @@ public class TileManager {
     // Load all tile textures
     public void getTileImage()
     {
+        setup(0, "floor", false);
+        setup(1, "wall", false);
+        setup(2, "water", false);
+        setup(3, "tree", false);
+        setup(4, "xpl_barrel", false);
 
-        try {
-            tile[0] = new Tile();
-            tile[0].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/floor.png")));
-            tile[1] = new Tile();
-            tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/wall.png")));
-            tile[2] = new Tile();
-            tile[2].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/water.png")));
-            tile[3] = new Tile();
-            tile[3].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/water.png")));
-            tile[4] = new Tile();
-            tile[4].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/tree.png")));
-            tile[5] = new Tile();
-            tile[5].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/xpl_barrel.png")));
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public void draw(Graphics2D g2)
@@ -111,10 +117,12 @@ public class TileManager {
                     worldY + gPanel.tileSize > gPanel.player.worldY - gPanel.player.screenY &&
                     worldY - gPanel.tileSize < gPanel.player.worldY + gPanel.player.screenY)
             {
-                g2.drawImage(tile[0].image, screenX, screenY, gPanel.tileSize, gPanel.tileSize, null);
+                g2.drawImage(tile[0].image, screenX, screenY, null);
+                g2.drawImage(tile[0].image, screenX, screenY, null);
 
                 if (mapTileNum[worldCol][worldRow] != 0)
-                    g2.drawImage(tile[mapTileNum[worldCol][worldRow]].image, screenX, screenY, gPanel.tileSize, gPanel.tileSize, null);
+                    g2.drawImage(tile[mapTileNum[worldCol][worldRow]].image, screenX, screenY, null);
+                    g2.drawImage(tile[mapTileNum[worldCol][worldRow]].image, screenX, screenY, null);
 
             }
 
